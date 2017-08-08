@@ -1,13 +1,13 @@
 /*----------------------------------------------------------------------------
+ * 名称：静态链表
+ * 介绍：
  * 1.为数组中每一个元素添加一个链接指针，就形成了静态链表结构。这样允许我们不改变各元素的物理位置，只
  * 要重新链接就可以改变这些数据的逻辑顺序。
  * 2.静态链表的每个结点都由两个数据组成：data域存储数据，link域存储链接指针。所有的结点形成一个结点
  * 数组，也可以带有附加头结点。
  *---------------------------------------------------------------------------*/
 #include <iostream>
-#include <string>
 using namespace std;
-
 const int maxSize=100;
 template <class T>
 struct SLinkNode{
@@ -27,7 +27,7 @@ public:
     bool Insert(int i,T x);    //Insert a new node behind the ith node
     bool Remove(int i);    //Remove the ith node in the List
     bool IsEmpty();    //Test the List whether empty or not
-    void display();    //Display all the data on the screen
+    void display();    //Print the data on your screen
 };
 template <class T>
 void StaticList<T>::InitList(){    //将链表空间初始化
@@ -43,12 +43,12 @@ int StaticList<T>::Length(){    //计算链表的长度
     int i=0;
     while(p!=-1){    //当结点的地址指向-1时表示链表末尾
         p=elem[p].link;
-        i++;    //用i数据结构（用面向对象方法与C++语言描述计数
+        i++;    //用i计数
     }
     return i;
 }
 template <class T>
-int StaticList<T>::Search(T x){    //搜索x,返回地址
+int StaticList<T>::Search(T x){    //搜索x
     int p=elem[0].link;    //从第一个结点开始,逐个比较
     while(p!=-1){
         if(elem[p].data==x)break;
@@ -69,7 +69,7 @@ int StaticList<T>::Locate(int i){    //找到第i个值并返回它的地址
         j++;
     }
     return p;
-}数据结构（用面向对象方法与C++语言描述
+}
 template <class T>
 bool StaticList<T>::Append(T x){    //在链表尾部追加新结点
     if(avil==-1) return false;    //如果可用空间的首地址为-1表示数组空间已经用完
@@ -112,36 +112,10 @@ bool StaticList<T>::IsEmpty(){    //判断链表是否为空
     else return false;
 }
 template<class T>
-void StaticList<T>::display(){    //输出结点数据，仅T为标准数据类型的时候直接可用。其他类型可用运算符重载使用
+void StaticList<T>::display(){    //在屏幕上打印data，data不能直接输出时需对<<运算符重载
     int p=elem[0].link;
     while(p!=-1){
         cout<<elem[p].data<<endl;
         p=elem[p].link;
     }
-}
-
-int main(){
-    StaticList<string> list2;    //存储字符串
-    list2.InitList();
-    list2.Append("append1");
-    list2.Append("append2");
-    list2.Insert(1,"insert behind 1");
-    list2.display();
-    list2.Remove(3);
-    cout<<"删除第3个结点"<<endl;
-    list2.display();
-    cout<<"链表长度:"<<list2.Length()<<endl;
-    cout<<"搜索append2:"<<list2.Search("append2")<<endl;
-    cout<<"搜索append1:"<<list2.Search("append1")<<endl;
-    cout<<"第2个结点数据的地址"<<list2.Locate(2)<<endl;
-
-    StaticList<int> list1;    //存储整数
-    list1.InitList();    //初始化
-    list1.Append(1);
-    list1.Append(2);
-    list1.Insert(11,3);
-    list1.display();
-    cout<<sizeof(list1)<<endl;
-    cout<<list1.IsEmpty()<<endl;
-    return 0;
 }
